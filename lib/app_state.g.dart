@@ -44,7 +44,7 @@ final class AppStateNotifierProvider
   }
 }
 
-String _$appStateNotifierHash() => r'7d9ac26c75102667ff986e7fd900fa7a4e7c9d7e';
+String _$appStateNotifierHash() => r'f758eb4ffaeb39b28290e34a10bcf4ebecc16178';
 
 /// Riverpod 3.0 notifier managing [AppState].
 

@@ -1,38 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'app_state.dart';
 import 'home_page.dart';
 import 'settings_page.dart';
 
-class MainLayout extends StatefulWidget {
+class MainLayout extends ConsumerWidget {
   const MainLayout({super.key});
 
-  @override
-  State<MainLayout> createState() => _MainLayoutState();
-}
-
-class _MainLayoutState extends State<MainLayout> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _pages = const [
+  static const List<Widget> _pages = [
     HomePage(),
     SettingsPage(),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedIndex = ref.watch(
+      appStateProvider.select((state) => state.pageIndex),
+    );
+
     return Scaffold(
       body: IndexedStack(
-        index: _selectedIndex,
+        index: selectedIndex,
         children: _pages,
       ),
       bottomNavigationBar: NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: _onItemTapped,
+        selectedIndex: selectedIndex,
+        onDestinationSelected: (index) {
+          ref.read(appStateProvider.notifier).setPageIndex(index);
+        },
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),

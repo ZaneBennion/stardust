@@ -4,32 +4,32 @@ part 'app_state.g.dart';
 
 /// App state model holding state for the application.
 class AppState {
-  final String dummy;
+  final int pageIndex;
 
   const AppState({
-    this.dummy = 'initial dummy value',
+    this.pageIndex = 0,
   });
 
   AppState copyWith({
-    String? dummy,
+    int? pageIndex,
   }) {
     return AppState(
-      dummy: dummy ?? this.dummy,
+      pageIndex: pageIndex ?? this.pageIndex,
     );
   }
 
   @override
-  String toString() => 'AppState(dummy: $dummy)';
+  String toString() => 'AppState(pageIndex: $pageIndex)';
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is AppState &&
           runtimeType == other.runtimeType &&
-          dummy == other.dummy;
+          pageIndex == other.pageIndex;
 
   @override
-  int get hashCode => dummy.hashCode;
+  int get hashCode => pageIndex.hashCode;
 }
 
 /// Riverpod 3.0 notifier managing [AppState].
@@ -40,7 +40,7 @@ class AppStateNotifier extends _$AppStateNotifier {
     return const AppState();
   }
 
-  void updateDummy(String newDummy) {
-    state = state.copyWith(dummy: newDummy);
+  void setPageIndex(int newIndex) {
+    state = state.copyWith(pageIndex: newIndex);
   }
 }
