@@ -1,4 +1,4 @@
-import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,7 +8,7 @@ class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
   Future<void> _pickDirectory(WidgetRef ref) async {
-    final selectedDirectory = await FilePicker.platform.getDirectoryPath();
+    final selectedDirectory = await getDirectoryPath();
     if (selectedDirectory != null) {
       ref.read(appStateProvider.notifier).setSelectedDirectory(selectedDirectory);
     }
